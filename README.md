@@ -1,6 +1,5 @@
 # Dream-Spotter
-## タスク管理
-https://github.com/orgs/musousakkabu/projects/1/views/1
+## [タスク管理](https://github.com/orgs/musousakkabu/projects/1/views/1)
 
 # 間違い探しゲーム仕様書 (Unity版)
 
