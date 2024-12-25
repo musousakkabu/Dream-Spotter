@@ -1,5 +1,9 @@
 # Dream-Spotter
+## タスク管理
+https://github.com/orgs/musousakkabu/projects/1/views/1
+
 # 間違い探しゲーム仕様書 (Unity版)
+
 ## 概要
 Unityエンジンを使用し、スマートフォン向けのネイティブアプリとして「間違い探しゲーム」を開発します。プレーヤーは、左右に表示された2つの画像の中から間違いをタップして見つけます。
 
