@@ -5,6 +5,19 @@
 interface IUserDataManager
 {
     /// <summary>
+    /// 選択されたステージ番号を保存する
+    /// </summary>
+    void setLastSelectedStageNumber();
+
+    /// <summary>
+    /// 最後に選択されたステージ番号を取得する
+    /// </summary>
+    /// <returns>
+    /// 最後に選択されたステージ番号 
+    /// </returns>
+    int getLastSelectedStageNumber();
+
+    /// <summary>
     /// クリアしたステージ番号を保存する
     /// </summary>
     void saveResolvedStageNumber(int stageNumber);
@@ -17,5 +30,5 @@ interface IUserDataManager
     /// <summary>
     /// 設定項目を保存する
     /// </summary>
-    void saveSoundSetting(soundVolumeLevel: Int);
+    void saveSoundSetting(int soundVolumeLevel);
 }

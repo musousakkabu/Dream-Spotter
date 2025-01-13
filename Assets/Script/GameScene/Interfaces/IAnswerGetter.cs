@@ -1,7 +1,10 @@
+using System.Numerics;
+using System.Collections.Generic;
+
 /// <summary>
 /// JSONファイルから各値を取り出す
 /// </summary>
-interface IJsonFileManager
+public interface IJsonFileManager
 {
     /// <summary>
     /// 正解座標を返す
@@ -12,7 +15,7 @@ interface IJsonFileManager
     /// <returns>
     /// 正解座標の配列
     /// </returns> 
-    Vector2[] getAnswers(stageNumber: Int);
+    Vector2[] getAnswers(int stageNumber);
 
     /// <summary>
     /// ステージタイトルを返す
@@ -23,7 +26,7 @@ interface IJsonFileManager
     /// <returns>
     /// ステージタイトル
     /// </returns> 
-    string getStageTitle(stageNumber: Int);
+    string getStageTitle(int stageNumber);
 
     /// <summary>
     /// 間違い探し画像のパスを取得する
@@ -34,13 +37,13 @@ interface IJsonFileManager
     /// <returns>
     /// 間違い探し画像のパス
     /// </returns>
-    Dictionary<ImageType, string>[] getStageImagePath(stageNumber: Int);
+    Dictionary<ImageType, string>[] getStageImagePath(int stageNumber);
 }
 
 /// <summary>
 /// 間違い探し画像の種類(上に表示するもの、下に表示するもの)
 /// </summary>
-enum ImageType
+public enum ImageType
 {
     up = 0,
     down = 1,

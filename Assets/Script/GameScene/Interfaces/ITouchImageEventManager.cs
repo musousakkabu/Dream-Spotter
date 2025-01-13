@@ -1,3 +1,5 @@
+using System.Numerics;
+
 /// <summary>
 /// 間違い探し画像をタッチしたときのイベントを管理
 /// </summary>
@@ -9,5 +11,5 @@ interface ITouchImageEventManager
     /// <param>
     /// touchedCoordinates: タッチ座標
     /// </param>
-    void touchEvent(touchedCoordinates: Vector2);
+    void touchEvent(Vector2 touchedCoordinates);
 }
