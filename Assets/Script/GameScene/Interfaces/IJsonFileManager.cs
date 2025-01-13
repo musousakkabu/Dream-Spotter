@@ -15,7 +15,7 @@ public interface IJsonFileManager
     /// <returns>
     /// 正解座標の配列
     /// </returns> 
-    Vector2[] getAnswers(int stageNumber);
+    AnswerType[] getAnswers(int stageNumber);
 
     /// <summary>
     /// ステージタイトルを返す
@@ -37,7 +37,7 @@ public interface IJsonFileManager
     /// <returns>
     /// 間違い探し画像のパス
     /// </returns>
-    Dictionary<ImageType, string>[] getStageImagePath(int stageNumber);
+    Dictionary<ImageType, string> getStageImagePath(int stageNumber);
 }
 
 /// <summary>
