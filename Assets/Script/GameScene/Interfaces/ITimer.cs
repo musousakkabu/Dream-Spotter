@@ -1,7 +1,7 @@
 /// <summary>
 /// タイマー操作担当
 /// </summary>
-interface ITimer
+public interface ITimer
 {
     /// <summary>
     /// 制限時間タイマーをスタートする

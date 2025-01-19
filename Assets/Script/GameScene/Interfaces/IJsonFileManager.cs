@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public interface IJsonFileManager
 {
     /// <summary>
-    /// 正解座標を返す
+    /// 正解座標を返す(画像内を百等分したときの座標。原点画像中心。)
     /// </summary>
     /// <param>
     /// stageNumber: ステージ番号
@@ -15,7 +15,7 @@ public interface IJsonFileManager
     /// <returns>
     /// 正解座標の配列
     /// </returns> 
-    Vector2[] getAnswers(int stageNumber);
+    AnswerType[] getAnswers(int stageNumber);
 
     /// <summary>
     /// ステージタイトルを返す
@@ -37,7 +37,7 @@ public interface IJsonFileManager
     /// <returns>
     /// 間違い探し画像のパス
     /// </returns>
-    Dictionary<ImageType, string>[] getStageImagePath(int stageNumber);
+    Dictionary<ImageType, string> getStageImagePath(int stageNumber);
 }
 
 /// <summary>
@@ -45,6 +45,6 @@ public interface IJsonFileManager
 /// </summary>
 public enum ImageType
 {
-    up = 0,
-    down = 1,
+    up,
+    down,
 }

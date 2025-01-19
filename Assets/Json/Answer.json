@@ -1,0 +1,52 @@
+[
+    {
+        "stageNumber": 0,
+        "answer": [
+            {
+                "answerNumber": 0,
+                "x": 0,
+                "y": 0
+            },
+            {
+                "answerNumber": 1,
+                "x": -20,
+                "y": -20
+            },
+            {
+                "answerNumber": 2,
+                "x": -30,
+                "y": 30
+            },
+            {
+                "answerNumber": 3,
+                "x": 40,
+                "y": -40
+            }
+        ]
+    },
+    {
+        "stageNumber": 1,
+        "answer": [
+            {
+                "answerNumber": 0,
+                "x": 10,
+                "y": 10
+            },
+            {
+                "answerNumber": 1,
+                "x": 20,
+                "y": 20
+            },
+            {
+                "answerNumber": 2,
+                "x": 40,
+                "y": -30
+            },
+            {
+                "answerNumber": 3,
+                "x": 30,
+                "y": -40
+            }
+        ]
+    }
+]

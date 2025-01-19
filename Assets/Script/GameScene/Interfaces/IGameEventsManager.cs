@@ -1,7 +1,9 @@
+using System.Numerics;
+
 /// <summary>
 /// ゲーム進行に関わるイベント管理を担当
 /// </summary>
-interface IGameEventsManager
+public interface IGameEventsManager
 {
     /// <summary>
     /// ゲームスタート時のイベント
@@ -12,7 +14,7 @@ interface IGameEventsManager
     /// <summary>
     /// 正解時イベント
     /// </summary>
-    void correctAnswerEvent();
+    void correctAnswerEvent(Vector2 correctedCoordinate, int stageNumber);
 
     /// <summary>
     /// 不正解時イベント
