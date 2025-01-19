@@ -16,4 +16,10 @@ class ErrorHandler: IErrorHandler
         Debug.LogError(error.Message);
         //TODO: ここでエラー時の処理を行う
     }
+
+    public void colliderNotFoundError(Exception error)
+    {
+        Debug.LogError(error.Message);
+        //TODO: ここでエラー時の処理を行う
+    }
 }

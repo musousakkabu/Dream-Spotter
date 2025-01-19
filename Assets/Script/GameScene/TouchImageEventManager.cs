@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using UnityEngine;
+using System.Linq;
 
 class TouchImageEventManager: ITouchImageEventManager
 {
@@ -70,7 +71,7 @@ class TouchImageEventManager: ITouchImageEventManager
         // すでに正解済みの座標かどうか判断
         System.Numerics.Vector2[] correctedCoordinateListUpSide = userDataManager.getCorrectedAnswer(stageNumber, true);
         System.Numerics.Vector2[] correctedCoordinateListDownSide = userDataManager.getCorrectedAnswer(stageNumber, false);
-        foreach (System.Numerics.Vector2 correctedCoordinate in (correctedCoordinateListUpSide + correctedCoordinateListDownSide))
+        foreach (System.Numerics.Vector2 correctedCoordinate in correctedCoordinateListUpSide.Concat(correctedCoordinateListDownSide).ToArray())
         {
             bool isInsideHorizontal = correctedCoordinate.X >= touchedCoordinates.X - Constants.correctTouchRange && correctedCoordinate.X <= touchedCoordinates.X + Constants.correctTouchRange;
             bool isInsideVertical = correctedCoordinate.Y >= touchedCoordinates.Y - Constants.correctTouchRange && correctedCoordinate.Y <= touchedCoordinates.Y + Constants.correctTouchRange;

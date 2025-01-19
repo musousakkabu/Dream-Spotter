@@ -14,10 +14,18 @@ public interface IErrorHandler
     void loadLocalFileError(Exception error);
 
     /// <summary>
-    /// ゲームオブジェクトの呼び出しに失敗した時のエラー
+    /// ゲームオブジェクトの呼び出しに失敗した時の処理
     /// </summary>
     /// <param name="error">
     /// エラーオブジェクト
     /// </param>
     void invalidObjectNameError(Exception error);
+
+    /// <summary>
+    /// コライダー取得に失敗したときの処理
+    /// </summary>
+    /// <param name="error">
+    /// エラーオブジェクト
+    /// </param>
+    void colliderNotFoundError(Exception error);
 }

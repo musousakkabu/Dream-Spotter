@@ -38,4 +38,15 @@ public interface IGameObjectManager
     /// 間違い探し画像かどうか
     /// </returns>
     bool isImageObject(GameObject obj);
+
+    /// <summary>
+    /// 間違い探し画像の大きさを取得する
+    /// </summary>
+    /// <param name="isUpSideImage">
+    /// 上の画像かどうか
+    /// </param>
+    /// <returns>
+    /// 画像の大きさ
+    /// </returns>
+    System.Numerics.Vector2 getMainImageSize(bool isUpSideImage);
 }

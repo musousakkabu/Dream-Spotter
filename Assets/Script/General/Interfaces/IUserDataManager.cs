@@ -36,10 +36,13 @@ interface IUserDataManager
     /// <param name="stageNumber">
     /// 対象ステージ番号
     /// </param>
+    /// <param name="isUpSide">
+    /// 上の画像に対してかどうか
+    /// </param>
     /// <returns>
     /// 正解済みタッチポイントの配列
     /// </returns>
-    Vector2[] getCorrectedAnswer(int stageNumber);
+    Vector2[] getCorrectedAnswer(int stageNumber, bool isUpSide);
 
     /// <summary>
     /// クリアしたステージ番号を保存する

@@ -27,6 +27,11 @@ class CoordinateManager: ICoordinateManager
     public System.Numerics.Vector2 exchangeToGlobalCoordinate(AnswerType coordinateInImage, bool isUpSideImage)
     {
         System.Numerics.Vector2 imagePosition = gameObjectManager.getMainImagePosition(isUpSideImage);
-        return new System.Numerics.Vector2(imagePosition.X + coordinateInImage.x, imagePosition.Y + coordinateInImage.y);
+        System.Numerics.Vector2 imageSize = gameObjectManager.getMainImageSize(isUpSideImage);
+
+        // AnswerTypeは画像を100等分したときの座標系なので、画像の大きさを用いて変換する
+        float coordinateRatioX = coordinateInImage.x / 100;
+        float coordinateRatioY = coordinateInImage.y / 100;
+        return new System.Numerics.Vector2(imagePosition.X + coordinateRatioX * imageSize.X, imagePosition.Y + coordinateRatioY * imageSize.Y);
     }
 }

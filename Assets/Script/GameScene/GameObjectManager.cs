@@ -28,4 +28,15 @@ class GameObjectManager: IGameObjectManager
     {
         return obj.name == Constants.upSideImageObjName || obj.name == Constants.downSideImageObjName;
     }
+
+    public System.Numerics.Vector2 getMainImageSize(bool isUpSideImage)
+    {
+        GameObject imageObj = getMainImageObj(isUpSideImage);
+        BoxCollider2D collider = imageObj.GetComponent<BoxCollider2D>();
+        if (collider == null)
+        {
+            errorHandler.colliderNotFoundError(new ColliderNotFoundError($"オブジェクト({imageObj.name})にコライダーが追加されていない。"));
+        }
+        return new System.Numerics.Vector2(collider.size.x, collider.size.y);
+    }
 }
