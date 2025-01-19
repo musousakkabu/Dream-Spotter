@@ -10,11 +10,26 @@ using System.Linq;
 /// </summary>
 class JsonFileManager: IJsonFileManager
 {
+    private IErrorHandler errorHandler;
+
+    public JsonFileManager(IErrorHandler errorHandler)
+    {
+        this.errorHandler = errorHandler;
+    }
+    
     public AnswerType[] getAnswers(int stageNumber)
     {
-        string jsonStr = loadStringFile(Constants.answerJsonFilePath);
-        StageAnswerType[] decoded = JsonConvert.DeserializeObject<StageAnswerType[]>(jsonStr);
-        return decoded.First(stage => stage.stageNumber == stageNumber).answer;
+        try
+        {
+            string jsonStr = loadStringFile(Constants.answerJsonFilePath);
+            StageAnswerType[] decoded = JsonConvert.DeserializeObject<StageAnswerType[]>(jsonStr);
+            return decoded.First(stage => stage.stageNumber == stageNumber).answer;
+        }
+        catch(Exception exception)
+        {
+            errorHandler.loadLocalFileError(exception);
+        }
+        return new AnswerType[0];
     }
 
     // TODO: 実装
@@ -41,6 +56,7 @@ class JsonFileManager: IJsonFileManager
         return fileVal;
     }
 
+    // JSONからのデコードに利用
     private class StageAnswerType
     {
         public int stageNumber { get; set;}

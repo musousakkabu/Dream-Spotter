@@ -6,7 +6,7 @@ public class Constants
     public static int baseLifeCount = 3;   
     
     // 正解判定タッチ誤差
-    public static float correctTouchRange = 1.0f;
+    public static float correctTouchRange = 0.1f;
 
 　　// 間違い探し画面の上の画像オブジェクト名
     public static string upSideImageObjName = "upSideImage";

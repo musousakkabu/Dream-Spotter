@@ -1,0 +1,31 @@
+using UnityEngine;
+
+class GameObjectManager: IGameObjectManager
+{
+    private IErrorHandler errorHandler;
+    public GameObjectManager(IErrorHandler errorHandler)
+    {
+        this.errorHandler = errorHandler;
+    }
+
+    public GameObject getMainImageObj(bool isUpSideImage)
+    {
+        GameObject imageObj = GameObject.Find(isUpSideImage ? Constants.upSideImageObjName : Constants.downSideImageObjName);
+        if (imageObj == null)
+        {
+            errorHandler.invalidObjectNameError(new InvalidObjectNameError(""));
+        }
+        return imageObj;
+    }
+
+    public System.Numerics.Vector2 getMainImagePosition(bool isUpSideImage)
+    {
+        GameObject imageObj = getMainImageObj(isUpSideImage);
+        return new System.Numerics.Vector2(imageObj.transform.position.x, imageObj.transform.position.y);
+    }
+
+    public bool isImageObject(GameObject obj)
+    {
+        return obj.name == Constants.upSideImageObjName || obj.name == Constants.downSideImageObjName;
+    }
+}

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public interface IJsonFileManager
 {
     /// <summary>
-    /// 正解座標を返す
+    /// 正解座標を返す(画像内を百等分したときの座標。原点画像中心。)
     /// </summary>
     /// <param>
     /// stageNumber: ステージ番号
@@ -45,6 +45,6 @@ public interface IJsonFileManager
 /// </summary>
 public enum ImageType
 {
-    up = 0,
-    down = 1,
+    up,
+    down,
 }

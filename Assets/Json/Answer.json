@@ -4,23 +4,23 @@
         "answer": [
             {
                 "answerNumber": 0,
-                "x": 10,
-                "y": 10
+                "x": 0,
+                "y": 0
             },
             {
                 "answerNumber": 1,
-                "x": 20,
-                "y": 20
+                "x": -20,
+                "y": -20
             },
             {
                 "answerNumber": 2,
-                "x": 30,
+                "x": -30,
                 "y": 30
             },
             {
                 "answerNumber": 3,
                 "x": 40,
-                "y": 40
+                "y": -40
             }
         ]
     },
@@ -40,12 +40,12 @@
             {
                 "answerNumber": 2,
                 "x": 40,
-                "y": 30
+                "y": -30
             },
             {
                 "answerNumber": 3,
                 "x": 30,
-                "y": 40
+                "y": -40
             }
         ]
     }
