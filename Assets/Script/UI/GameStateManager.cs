@@ -8,29 +8,63 @@ public class GameStateManager : MonoBehaviour
         Tutorial,
         StageSelect,
         Playing,
-        Result
+        Result,
+        GameOver
     }
 
     private GameState currentState;
     private Stage selectedStage;  // 選ばれたステージ情報
+    public UIManage uiManage;    // UIManageへの参照
+    //public IUserDataManager userDataManager;  // IUserDataManagerの参照
+
+    private const string TutorialDoneKey = "TutorialDone"; // チュートリアル完了フラグ用
 
     private void Start()
     {
-        ChangeState(GameState.Title);
+        if (IsTutorialDone())
+        {
+            ChangeState(GameState.Title);
+        }
+        else
+        {
+            ChangeState(GameState.Tutorial);
+        }
     }
 
-    private void Update()
+    public void ChangeState(GameState newState)
     {
-        // 現在の状態に応じた自動遷移
+        currentState = newState;
+        Debug.Log($"ゲーム状態が変更されました: {currentState}");
+
+        // 状態ごとの処理を実行
         switch (currentState)
         {
             case GameState.Title:
-                // タイトル画面表示後、3秒後に自動でチュートリアルに移行
-                Invoke("AutoTransitionToTutorial", 3f);
+                uiManage.ShowUI("Title");
+                Invoke(nameof(AutoTransitionToTutorial), 3f);
                 break;
+
             case GameState.Tutorial:
-                // チュートリアル終了後、3秒後にステージ選択画面に移行
-                Invoke("AutoTransitionToStageSelect", 3f);
+                uiManage.ShowUI("Tutorial");
+                Invoke(nameof(AutoTransitionToResult), 3f); // チュートリアル完了後に結果画面へ
+                break;
+
+            case GameState.Result:
+                uiManage.ShowUI("Result");
+                Invoke(nameof(AutoTransitionToStageSelectFromResult), 3f); // 一定時間後にセレクト画面へ
+                break;
+
+            case GameState.StageSelect:
+                uiManage.ShowUI("StageSelect");
+                break;
+
+            case GameState.Playing:
+                uiManage.ShowUI("Game");
+                StartGame();
+                break;
+
+            case GameState.GameOver:
+                uiManage.ShowUI("GameOver");
                 break;
         }
     }
@@ -43,36 +77,28 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    private void AutoTransitionToStageSelect()
+    private void AutoTransitionToResult()
     {
         if (currentState == GameState.Tutorial)
         {
-            ChangeState(GameState.StageSelect);
+            //userDataManager.saveIsDoneTutorial(); // チュートリアル完了を保存
+            // ゲームクリアまたはゲームオーバーを判定して遷移
+            if (IsGameClear())
+            {
+                ChangeState(GameState.Result);  // ゲームクリア
+            }
+            else if (IsGameOver())
+            {
+                ChangeState(GameState.GameOver);  // ゲームオーバー
+            }
         }
     }
 
-    public void ChangeState(GameState newState)
+    private void AutoTransitionToStageSelectFromResult()
     {
-        currentState = newState;
-
-        // 各状態に応じた処理
-        switch (currentState)
+        if (currentState == GameState.Result)
         {
-            case GameState.Title:
-                ShowTitleUI();
-                break;
-            case GameState.Tutorial:
-                ShowTutorialUI();
-                break;
-            case GameState.StageSelect:
-                ShowStageSelectUI();
-                break;
-            case GameState.Playing:
-                StartGame();
-                break;
-            case GameState.Result:
-                ShowResultUI();
-                break;
+            ChangeState(GameState.StageSelect); // 結果画面からセレクト画面へ遷移
         }
     }
 
@@ -81,31 +107,45 @@ public class GameStateManager : MonoBehaviour
         selectedStage = stage;
     }
 
-    private void ShowTitleUI()
-    {
-        Debug.Log("タイトル画面を表示");
-    }
-
-    private void ShowTutorialUI()
-    {
-        Debug.Log("チュートリアル画面を表示");
-    }
-
-    private void ShowStageSelectUI()
-    {
-        Debug.Log("ステージ選択画面を表示");
-    }
-
     private void StartGame()
     {
-        // ステージ情報に基づいた処理
-        Debug.Log("ゲーム開始: " + selectedStage.stageName);
-        // 背景画像の変更
-        //backgroundImage.sprite = selectedStage.backgroundImage;  // ゲーム内の背景画像に設定
+        if (selectedStage != null)
+        {
+            Debug.Log($"ゲーム開始: {selectedStage.stageName}");
+        }
+        else
+        {
+            Debug.LogWarning("ステージが選択されていません。");
+        }
     }
 
-    private void ShowResultUI()
+    // チュートリアル完了状態を取得
+    private bool IsTutorialDone()
     {
-        Debug.Log("結果画面を表示");
+        return PlayerPrefs.GetInt(TutorialDoneKey, 0) == 1;  // PlayerPrefsからチュートリアル完了情報を取得
+    }
+
+    // ゲームクリアかどうかを判定するメソッド
+    private bool IsGameClear()
+    {
+        // ここでゲームクリアの判定を行う。例えば、ステージの最後に到達した場合など
+        // 例: selectedStage が最後のステージの場合
+        /*if (selectedStage != null && selectedStage.stageNumber == 10)  // ステージ番号が10ならクリアとする
+        {
+            return true;
+        }*/
+        return false;
+    }
+
+    // ゲームオーバーかどうかを判定するメソッド
+    private bool IsGameOver()
+    {
+        // ここでゲームオーバーの判定を行う。例えば、残機がなくなった場合など
+        // 例: selectedStage が null か、ゲームの終了条件を満たした場合
+        if (selectedStage == null) // ステージが選ばれていない場合、ゲームオーバーとする
+        {
+            return true;
+        }
+        return false;
     }
 }
