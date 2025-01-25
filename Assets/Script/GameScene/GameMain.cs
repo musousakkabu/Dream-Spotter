@@ -22,16 +22,22 @@ class GameMain: MonoBehaviour
 
     private void initializeMembers()
     {
-        this.userDataManager = new UserDataManager();
-        touchEventManager = new TouchImageEventManager(
-            new GameEventsManager(new UserDataManager()), 
-            new UserDataManager(),
-            new CoordinateManager(
-                new JsonFileManager(new ErrorHandler()), 
-                new ErrorHandler(),
-                new GameObjectManager(new ErrorHandler())
-            ),
-            new GameObjectManager(new ErrorHandler()),
+        IErrorHandler errorHandler = new ErrorHandler();
+        ICoordinateManager coordinateManager = new CoordinateManager(
+            new JsonFileManager(errorHandler), 
+            new ErrorHandler(),
+            new GameObjectManager(errorHandler)
+        );
+        IGameObjectManager gameObjectManager = new GameObjectManager(errorHandler);
+        IUserDataManager userDataManager = new UserDataManager();
+        IGameEventsManager gameEventsManager = new GameEventsManager(userDataManager, coordinateManager);
+
+        this.userDataManager = userDataManager;
+        this.touchEventManager = new TouchImageEventManager(
+            gameEventsManager, 
+            userDataManager,
+            coordinateManager,
+            gameObjectManager,
             userDataManager.getLastSelectedStageNumber()
         );
     }

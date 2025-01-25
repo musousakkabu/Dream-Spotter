@@ -24,7 +24,7 @@ public interface IGameEventsManager
     /// <summary>
     /// ステージクリアイベント
     /// </summary>
-    void stageClearEvent();
+    void stageClearEvent(int stageNumber);
 
     /// <summary>
     /// ゲームオーバーイベント
