@@ -48,7 +48,6 @@ class TouchImageEventManager: ITouchImageEventManager
         ResultReturnType upSideTouchResult = getTouchResult(new System.Numerics.Vector2(touchPosition.x, touchPosition.y), true);
         ResultReturnType downSideTouchResult = getTouchResult(new System.Numerics.Vector2(touchPosition.x, touchPosition.y), false);
 
-        // 正解した方の座標を保存する
         if (upSideTouchResult.touchResult == TouchResult.correct)
         {
             gameEventsManager.correctAnswerEvent(upSideTouchResult.correctedCoordinate, stageNumber);
