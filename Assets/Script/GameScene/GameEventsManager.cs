@@ -7,11 +7,14 @@ class GameEventsManager: IGameEventsManager
 
     private IUserDataManager userDataManager;
     private ICoordinateManager coordinateManager;
+    
+    private int inCorrectCount;
 
     public GameEventsManager(IUserDataManager userDataManager, ICoordinateManager coordinateManager)
     {
         this.userDataManager = userDataManager;
         this.coordinateManager = coordinateManager;
+        this.inCorrectCount = 0;
     }
 
     public void gameStartEvent() {}
@@ -31,11 +34,27 @@ class GameEventsManager: IGameEventsManager
 
     public void inCorrectAnswerEvent() {
         Debug.Log("not correct");
+        // TODO: ここで不正解時エフェクトなどを発火する
+
+        inCorrectCount++;
+
+        if (inCorrectCount > Constants.baseLifeCount) 
+        {
+            gameOverEvent();
+        }
     }
 
-    public void stageClearEvent(int stageNumber) {}
+    public void stageClearEvent(int stageNumber) 
+    {
+        Debug.Log("stage clear");
+        // TODO: ステージクリア時の処理
+    }
 
-    public void gameOverEvent() {}
+    public void gameOverEvent() 
+    {
+        Debug.Log("game over");
+        // TODO: ゲームオーバー時の処理
+    }
 
     public void openHintEvent(int stageNumber) {}
 

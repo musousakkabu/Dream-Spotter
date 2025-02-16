@@ -5,10 +5,13 @@ class GameMain: MonoBehaviour
 {
     private ITouchImageEventManager touchEventManager;
     private IUserDataManager userDataManager;
+    private ICustomTimer customTimer;
+    private IGameEventsManager gameEventsManager;
 
     void Start()
     {
         initializeMembers();
+        customTimer.StartTimer();
     }
 
     void Update()
@@ -17,6 +20,11 @@ class GameMain: MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             touchEventManager.touchEvent();
+        }
+
+        if (customTimer.getIsTimerActive())
+        {
+            customTimer.DecreaseFrame();
         }
     }
 
@@ -40,5 +48,7 @@ class GameMain: MonoBehaviour
             gameObjectManager,
             userDataManager.getLastSelectedStageNumber()
         );
+        this.gameEventsManager = gameEventsManager;
+        this.customTimer = new CustomTimer(Constants.baseTimerLimitSec, () => { gameEventsManager.gameOverEvent(); });
     }
 }
