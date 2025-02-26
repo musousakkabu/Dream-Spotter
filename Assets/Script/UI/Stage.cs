@@ -1,9 +1,15 @@
 using UnityEngine;
 
 [System.Serializable]
-public class Stage
+public class Stage : IStage
 {
     public string stageName;
     public string description;
-    public Sprite backgroundImage; // ステージの背景画像など
+    public Sprite backgroundImage;
+    public int stageNumber;
+
+    public string StageName => stageName;
+    public string Description => description;
+    public Sprite BackgroundImage => backgroundImage;
+    public int StageNumber => stageNumber;
 }

@@ -13,21 +13,40 @@ public class GameStateManager : MonoBehaviour
     }
 
     private GameState currentState;
-    private Stage selectedStage;  // 選ばれたステージ情報
-    public UIManage uiManage;    // UIManageへの参照
-    //public IUserDataManager userDataManager;  // IUserDataManagerの参照
+    private Stage selectedStage;
+    public UIManage uiManage;
 
-    private const string TutorialDoneKey = "TutorialDone"; // チュートリアル完了フラグ用
+    private const string TutorialDoneKey = "TutorialDone"; // PlayerPrefsのキー
+
+    private float timeBeforeAutoTransition = 5f;  // タイトル画面から自動で遷移する時間（秒）
+    private float timeElapsed = 0f;  // 経過時間
 
     private void Start()
     {
-        if (IsTutorialDone())
+        // 初期状態はタイトル画面を表示
+        ChangeState(GameState.Title);
+    }
+
+    private void Update()
+    {
+        // タイトル画面のとき、時間が経過したら自動で次の画面へ遷移
+        if (currentState == GameState.Title)
         {
-            ChangeState(GameState.Title);
-        }
-        else
-        {
-            ChangeState(GameState.Tutorial);
+            timeElapsed += Time.deltaTime;  // 経過時間をカウント
+
+            if (timeElapsed >= timeBeforeAutoTransition)
+            {
+                // チュートリアルが未完了の場合、チュートリアル画面へ遷移
+                if (!IsTutorialDone())
+                {
+                    ChangeState(GameState.Tutorial);
+                }
+                else
+                {
+                    // チュートリアルが完了している場合、ステージ選択画面へ遷移
+                    ChangeState(GameState.StageSelect);
+                }
+            }
         }
     }
 
@@ -36,22 +55,18 @@ public class GameStateManager : MonoBehaviour
         currentState = newState;
         Debug.Log($"ゲーム状態が変更されました: {currentState}");
 
-        // 状態ごとの処理を実行
         switch (currentState)
         {
             case GameState.Title:
                 uiManage.ShowUI("Title");
-                Invoke(nameof(AutoTransitionToTutorial), 3f);
                 break;
 
             case GameState.Tutorial:
                 uiManage.ShowUI("Tutorial");
-                Invoke(nameof(AutoTransitionToResult), 3f); // チュートリアル完了後に結果画面へ
                 break;
 
             case GameState.Result:
                 uiManage.ShowUI("Result");
-                Invoke(nameof(AutoTransitionToStageSelectFromResult), 3f); // 一定時間後にセレクト画面へ
                 break;
 
             case GameState.StageSelect:
@@ -69,37 +84,17 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    private void AutoTransitionToTutorial()
+    // チュートリアルが完了したかをPlayerPrefsで確認
+    private bool IsTutorialDone()
     {
-        if (currentState == GameState.Title)
-        {
-            ChangeState(GameState.Tutorial);
-        }
+        return PlayerPrefs.GetInt(TutorialDoneKey, 0) == 1; // チュートリアルが完了した場合は1、未完了の場合は0
     }
 
-    private void AutoTransitionToResult()
+    // チュートリアル完了の状態を保存
+    public void MarkTutorialAsComplete()
     {
-        if (currentState == GameState.Tutorial)
-        {
-            //userDataManager.saveIsDoneTutorial(); // チュートリアル完了を保存
-            // ゲームクリアまたはゲームオーバーを判定して遷移
-            if (IsGameClear())
-            {
-                ChangeState(GameState.Result);  // ゲームクリア
-            }
-            else if (IsGameOver())
-            {
-                ChangeState(GameState.GameOver);  // ゲームオーバー
-            }
-        }
-    }
-
-    private void AutoTransitionToStageSelectFromResult()
-    {
-        if (currentState == GameState.Result)
-        {
-            ChangeState(GameState.StageSelect); // 結果画面からセレクト画面へ遷移
-        }
+        PlayerPrefs.SetInt(TutorialDoneKey, 1); // チュートリアル完了として保存
+        PlayerPrefs.Save();
     }
 
     public void SetSelectedStage(Stage stage)
@@ -119,30 +114,19 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    // チュートリアル完了状態を取得
-    private bool IsTutorialDone()
-    {
-        return PlayerPrefs.GetInt(TutorialDoneKey, 0) == 1;  // PlayerPrefsからチュートリアル完了情報を取得
-    }
-
-    // ゲームクリアかどうかを判定するメソッド
     private bool IsGameClear()
     {
-        // ここでゲームクリアの判定を行う。例えば、ステージの最後に到達した場合など
-        // 例: selectedStage が最後のステージの場合
-        /*if (selectedStage != null && selectedStage.stageNumber == 10)  // ステージ番号が10ならクリアとする
+        // 例: selectedStage.stageNumber が特定のステージ番号（例えば 10）ならクリアとする
+        if (selectedStage != null && selectedStage.stageNumber == 10)
         {
             return true;
-        }*/
+        }
         return false;
     }
 
-    // ゲームオーバーかどうかを判定するメソッド
     private bool IsGameOver()
     {
-        // ここでゲームオーバーの判定を行う。例えば、残機がなくなった場合など
-        // 例: selectedStage が null か、ゲームの終了条件を満たした場合
-        if (selectedStage == null) // ステージが選ばれていない場合、ゲームオーバーとする
+        if (selectedStage == null)
         {
             return true;
         }
