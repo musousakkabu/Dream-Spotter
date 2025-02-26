@@ -1,28 +1,32 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StageSelectUI : MonoBehaviour
+public class StageSelectUI : MonoBehaviour, IStageSelectManager
 {
-    public Button[] stageButtons;  // ステージ選択ボタン
-    public GameStateManager gameStateManager;  // GameStateManagerへの参照
-
-    // ステージのデータ（例: ステージ名と背景画像など）
+    public Button[] stageButtons;
+    public GameStateManager gameStateManager;
     public Stage[] stages;
 
     private void Start()
     {
         for (int i = 0; i < stageButtons.Length; i++)
         {
-            int index = i;  // 変数のキャプチャに注意
+            int index = i;
             stageButtons[i].onClick.AddListener(() => OnStageSelected(index));
         }
     }
 
-    // ステージ選択ボタンがクリックされたときに呼ばれる
-    private void OnStageSelected(int index)
+    public Stage[] GetStages()
     {
-        // 選ばれたステージ情報をGameStateManagerに渡す
+        return stages;  // ステージの配列を返す
+    }
+
+
+    public void OnStageSelected(int index)
+    {
+        // ステージ選択
         gameStateManager.SetSelectedStage(stages[index]);
         gameStateManager.ChangeState(GameStateManager.GameState.Playing);
     }
 }
+

@@ -1,6 +1,6 @@
 using System.Numerics;
 
-class UserDataManager: IUserDataManager
+public class UserDataManager: IUserDataManager
 {
     public void setLastSelectedStageNumber() {}
 
