@@ -13,8 +13,11 @@ public class GameStateManager : MonoBehaviour
     }
 
     private GameState currentState;
-    private Stage selectedStage;
-    public UIManage uiManage;
+    private Stage selectedStage;  // 選ばれたステージ情報
+    public UIManage uiManage;    // UIManageへの参照
+    //public IUserDataManager userDataManager;  // IUserDataManagerの参照
+    private int missCount; // ミス回数
+    private float clearTime; // クリア時間（秒）
 
     private const string TutorialDoneKey = "TutorialDone"; // PlayerPrefsのキー
 
@@ -67,6 +70,8 @@ public class GameStateManager : MonoBehaviour
 
             case GameState.Result:
                 uiManage.ShowUI("Result");
+                uiManage.ShowClearResult(missCount, clearTime); // ミス回数とクリア時間を表示
+                Invoke(nameof(AutoTransitionToStageSelectFromResult), 3f);
                 break;
 
             case GameState.StageSelect:
@@ -80,7 +85,9 @@ public class GameStateManager : MonoBehaviour
 
             case GameState.GameOver:
                 uiManage.ShowUI("GameOver");
+                Invoke(nameof(AutoTransitionToTitleFromGameOver), 3f); // 3秒後にタイトルへ
                 break;
+
         }
     }
 
@@ -114,6 +121,22 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
+    private void AutoTransitionToTitleFromGameOver()
+    {
+        if (currentState == GameState.GameOver)
+        {
+            ChangeState(GameState.Title); // ゲームオーバー後はタイトル画面へ
+        }
+    }
+
+
+    // チュートリアル完了状態を取得
+    private bool IsTutorialDone()
+    {
+        return PlayerPrefs.GetInt(TutorialDoneKey, 0) == 1;  // PlayerPrefsからチュートリアル完了情報を取得
+    }
+
+    // ゲームクリアかどうかを判定するメソッド
     private bool IsGameClear()
     {
         // 例: selectedStage.stageNumber が特定のステージ番号（例えば 10）ならクリアとする

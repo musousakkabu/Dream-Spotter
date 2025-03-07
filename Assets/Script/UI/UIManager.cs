@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro; // TextMeshPro を使う
 
 public class UIManage : MonoBehaviour, IUIManager
 {
@@ -7,6 +8,8 @@ public class UIManage : MonoBehaviour, IUIManager
     public GameObject stageSelectCanvas;
     public GameObject gameCanvas;
     public GameObject resultCanvas;
+
+    public TextMeshProUGUI resultText; // 結果表示用のテキスト
 
     // 全てのUIを非表示にする
     public void HideAllUI()
@@ -17,6 +20,12 @@ public class UIManage : MonoBehaviour, IUIManager
         gameCanvas.SetActive(false);
         resultCanvas.SetActive(false);
     }
+
+    public void ShowClearResult(int missCount, float clearTime)
+    {
+        resultText.text = $"ミス回数: {missCount}\nクリア時間: {clearTime:F2}秒";
+    }
+
 
     // 指定したUIのみ表示
     public void ShowUI(string uiName)
