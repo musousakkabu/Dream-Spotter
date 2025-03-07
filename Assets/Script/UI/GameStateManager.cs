@@ -16,6 +16,8 @@ public class GameStateManager : MonoBehaviour
     private Stage selectedStage;  // 選ばれたステージ情報
     public UIManage uiManage;    // UIManageへの参照
     //public IUserDataManager userDataManager;  // IUserDataManagerの参照
+    private int missCount; // ミス回数
+    private float clearTime; // クリア時間（秒）
 
     private const string TutorialDoneKey = "TutorialDone"; // チュートリアル完了フラグ用
 
@@ -51,7 +53,8 @@ public class GameStateManager : MonoBehaviour
 
             case GameState.Result:
                 uiManage.ShowUI("Result");
-                Invoke(nameof(AutoTransitionToStageSelectFromResult), 3f); // 一定時間後にセレクト画面へ
+                uiManage.ShowClearResult(missCount, clearTime); // ミス回数とクリア時間を表示
+                Invoke(nameof(AutoTransitionToStageSelectFromResult), 3f);
                 break;
 
             case GameState.StageSelect:
@@ -65,7 +68,9 @@ public class GameStateManager : MonoBehaviour
 
             case GameState.GameOver:
                 uiManage.ShowUI("GameOver");
+                Invoke(nameof(AutoTransitionToTitleFromGameOver), 3f); // 3秒後にタイトルへ
                 break;
+
         }
     }
 
@@ -118,6 +123,15 @@ public class GameStateManager : MonoBehaviour
             Debug.LogWarning("ステージが選択されていません。");
         }
     }
+
+    private void AutoTransitionToTitleFromGameOver()
+    {
+        if (currentState == GameState.GameOver)
+        {
+            ChangeState(GameState.Title); // ゲームオーバー後はタイトル画面へ
+        }
+    }
+
 
     // チュートリアル完了状態を取得
     private bool IsTutorialDone()
