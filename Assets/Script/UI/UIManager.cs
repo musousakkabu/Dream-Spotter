@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro; // TextMeshPro を使う
 
-public class UIManage : MonoBehaviour
+public class UIManage : MonoBehaviour, IUIManager
 {
     public GameObject titleCanvas;
     public GameObject tutorialCanvas;
