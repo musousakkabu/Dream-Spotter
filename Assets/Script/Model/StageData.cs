@@ -1,12 +1,14 @@
+using System.Collections.Generic;
+
 /// <summary>
 /// ステージの詳細情報をまとめた型(主にゲーム画面で利用)
 /// </summary>
-public class StageMasterData
+public class StageData
 {
     /// <summary>
     /// 間違い探し画像のパス文字列(Assets配下)
     /// </summary>
-    public <ImageType, string> imagePath { get; }
+    public Dictionary<ImageType, string> imagePath { get; }
 
     /// <summary>
     /// 正解座標の配列
