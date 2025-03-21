@@ -17,11 +17,13 @@ class CoordinateManager: ICoordinateManager
     
     public System.Numerics.Vector2[] getGlobalCorrectCoordinate(int stageNumber, bool isUpSideImage)
     {
-        return jsonFileManager.getAnswers(stageNumber).Select(answerType => 
-        {
-            return exchangeToGlobalCoordinate(answerType, isUpSideImage);
-        }
-        ).ToArray();
+        // TODO: 実装
+        return new System.Numerics.Vector2[0];
+        // return jsonFileManager.getAnswers(stageNumber).Select(answerType => 
+        // {
+        //     return exchangeToGlobalCoordinate(answerType, isUpSideImage);
+        // }
+        // ).ToArray();
     }
 
     public System.Numerics.Vector2 exchangeToGlobalCoordinate(AnswerType coordinateInImage, bool isUpSideImage)

@@ -71,7 +71,7 @@ public class GameStateManager : MonoBehaviour
             case GameState.Result:
                 uiManage.ShowUI("Result");
                 uiManage.ShowClearResult(missCount, clearTime); // ミス回数とクリア時間を表示
-                Invoke(nameof(AutoTransitionToStageSelectFromResult), 3f);
+                Invoke("AutoTransitionToStageSelectFromResult", 3f); // TODO: 関数AutoTransitionToStageSelectFromResultの実装
                 break;
 
             case GameState.StageSelect:
@@ -127,13 +127,6 @@ public class GameStateManager : MonoBehaviour
         {
             ChangeState(GameState.Title); // ゲームオーバー後はタイトル画面へ
         }
-    }
-
-
-    // チュートリアル完了状態を取得
-    private bool IsTutorialDone()
-    {
-        return PlayerPrefs.GetInt(TutorialDoneKey, 0) == 1;  // PlayerPrefsからチュートリアル完了情報を取得
     }
 
     // ゲームクリアかどうかを判定するメソッド
