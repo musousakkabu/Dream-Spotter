@@ -28,6 +28,7 @@ public class GameStateManager : MonoBehaviour
     {
         // 初期状態はタイトル画面を表示
         ChangeState(GameState.Title);
+        uiManage.SetGameStateManager(this);
     }
 
     private void Update()
@@ -50,6 +51,13 @@ public class GameStateManager : MonoBehaviour
                     ChangeState(GameState.StageSelect);
                 }
             }
+        }
+
+        // チュートリアル中にクリックでクリア → ステージ選択へ
+        if (currentState == GameState.Tutorial && Input.GetMouseButtonDown(0))
+        {
+            MarkTutorialAsComplete();
+            ChangeState(GameState.StageSelect);
         }
     }
 
@@ -85,7 +93,7 @@ public class GameStateManager : MonoBehaviour
 
             case GameState.GameOver:
                 uiManage.ShowUI("GameOver");
-                Invoke(nameof(AutoTransitionToTitleFromGameOver), 3f); // 3秒後にタイトルへ
+                //Invoke(nameof(AutoTransitionToTitleFromGameOver), 3f); // 3秒後にタイトルへ
                 break;
 
         }
@@ -94,7 +102,7 @@ public class GameStateManager : MonoBehaviour
     // チュートリアルが完了したかをPlayerPrefsで確認
     private bool IsTutorialDone()
     {
-        return PlayerPrefs.GetInt(TutorialDoneKey, 0) == 1; // チュートリアルが完了した場合は1、未完了の場合は0
+        return PlayerPrefs.GetInt(TutorialDoneKey, 0) == 0; // チュートリアルが完了した場合は1、未完了の場合は0
     }
 
     // チュートリアル完了の状態を保存

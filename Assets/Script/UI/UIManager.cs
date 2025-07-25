@@ -8,6 +8,11 @@ public class UIManage : MonoBehaviour, IUIManager
     public GameObject stageSelectCanvas;
     public GameObject gameCanvas;
     public GameObject resultCanvas;
+    public GameObject gameOverCanvas;
+    public Button retryButton;
+    public Button backToStageSelectButton;
+
+    private GameStateManager gameStateManager;
 
     public TextMeshProUGUI resultText; // 結果表示用のテキスト
 
@@ -48,6 +53,9 @@ public class UIManage : MonoBehaviour, IUIManager
                 break;
             case "Result":
                 resultCanvas.SetActive(true);
+                break;
+            case "GameOver":
+                gameOverCanvas.SetActive(true);
                 break;
         }
     }
