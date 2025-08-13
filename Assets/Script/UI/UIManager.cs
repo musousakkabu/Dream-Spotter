@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro; // TextMeshPro を使う
 
-public class UIManage : MonoBehaviour, IUIManager
+public class UIManager : MonoBehaviour, IUIManager
 {
     public GameObject titleCanvas;
     public GameObject tutorialCanvas;
@@ -11,6 +12,7 @@ public class UIManage : MonoBehaviour, IUIManager
     public GameObject gameOverCanvas;
     public Button retryButton;
     public Button backToStageSelectButton;
+    public Button nextButton; 
 
     private GameStateManager gameStateManager;
 
@@ -24,11 +26,16 @@ public class UIManage : MonoBehaviour, IUIManager
         stageSelectCanvas.SetActive(false);
         gameCanvas.SetActive(false);
         resultCanvas.SetActive(false);
+
+        nextButton.gameObject.SetActive(false);
+        retryButton.gameObject.SetActive(false);
+        backToStageSelectButton.gameObject.SetActive(false);
     }
 
     public void ShowClearResult(int missCount, float clearTime)
     {
         resultText.text = $"ミス回数: {missCount}\nクリア時間: {clearTime:F2}秒";
+        nextButton.gameObject.SetActive(true); // ← クリア時に表示
     }
 
 
@@ -53,9 +60,6 @@ public class UIManage : MonoBehaviour, IUIManager
                 break;
             case "Result":
                 resultCanvas.SetActive(true);
-                break;
-            case "GameOver":
-                gameOverCanvas.SetActive(true);
                 break;
         }
     }

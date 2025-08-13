@@ -14,7 +14,7 @@ public class GameStateManager : MonoBehaviour
 
     private GameState currentState;
     private Stage selectedStage;  // 選ばれたステージ情報
-    public UIManage uiManage;    // UIManageへの参照
+    public UIManager uiManage;    // UIManagerへの参照
     //public IUserDataManager userDataManager;  // IUserDataManagerの参照
     private int missCount; // ミス回数
     private float clearTime; // クリア時間（秒）
@@ -28,7 +28,7 @@ public class GameStateManager : MonoBehaviour
     {
         // 初期状態はタイトル画面を表示
         ChangeState(GameState.Title);
-        uiManage.SetGameStateManager(this);
+        //uiManage.SetGameStateManager(this);
     }
 
     private void Update()
@@ -91,11 +91,11 @@ public class GameStateManager : MonoBehaviour
                 StartGame();
                 break;
 
-            case GameState.GameOver:
+            /*case GameState.GameOver:
                 uiManage.ShowUI("GameOver");
                 //Invoke(nameof(AutoTransitionToTitleFromGameOver), 3f); // 3秒後にタイトルへ
                 break;
-
+            */
         }
     }
 
