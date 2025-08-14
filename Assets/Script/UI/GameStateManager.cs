@@ -14,12 +14,7 @@ public class GameStateManager : MonoBehaviour, IGameStateManager
 
     private GameState currentState;
     private Stage selectedStage;  // 選ばれたステージ情報
-<<<<<<< Updated upstream
     public UIManager uiManage;    // UIManagerへの参照
-=======
-    public UIManager uiManage;    // UIManageへの参照
->>>>>>> Stashed changes
-    //public IUserDataManager userDataManager;  // IUserDataManagerの参照
     private int missCount; // ミス回数
     private float clearTime; // クリア時間（秒）
 
@@ -106,11 +101,7 @@ public class GameStateManager : MonoBehaviour, IGameStateManager
     // チュートリアルが完了したかをPlayerPrefsで確認
     public bool IsTutorialDone()
     {
-<<<<<<< Updated upstream
-        return PlayerPrefs.GetInt(TutorialDoneKey, 0) == 0; // チュートリアルが完了した場合は1、未完了の場合は0
-=======
         return PlayerPrefs.GetInt(TutorialDoneKey, 0) ==1; // チュートリアルが完了した場合は1、未完了の場合は0
->>>>>>> Stashed changes
     }
 
     // チュートリアル完了の状態を保存
