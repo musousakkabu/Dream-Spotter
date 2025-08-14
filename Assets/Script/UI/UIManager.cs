@@ -16,17 +16,9 @@ public class UIManager : MonoBehaviour, IUIManager
     public GameObject stageSelectCanvas;
     public GameObject gameCanvas;
     public GameObject resultCanvas;
-<<<<<<< Updated upstream
-    public GameObject gameOverCanvas;
-    public Button retryButton;
-    public Button backToStageSelectButton;
-    public Button nextButton; 
-
-    private GameStateManager gameStateManager;
-=======
     public GameObject optionCanvas;  // オプションメニューのPanel
     public GameObject hintCanvas;    // ヒントを表示するUI
->>>>>>> Stashed changes
+
 
     public TextMeshProUGUI resultText; // 結果表示用のテキスト
 
@@ -57,21 +49,14 @@ public class UIManager : MonoBehaviour, IUIManager
         stageSelectCanvas.SetActive(false);
         gameCanvas.SetActive(false);
         resultCanvas.SetActive(false);
-<<<<<<< Updated upstream
-
-        nextButton.gameObject.SetActive(false);
-        retryButton.gameObject.SetActive(false);
-        backToStageSelectButton.gameObject.SetActive(false);
-=======
         optionCanvas.SetActive(false);
         hintCanvas.SetActive(false);
->>>>>>> Stashed changes
+
     }
 
     public void ShowClearResult(int missCount, float clearTime)
     {
         resultText.text = $"ミス回数: {missCount}\nクリア時間: {clearTime:F2}秒";
-        nextButton.gameObject.SetActive(true); // ← クリア時に表示
     }
 
 
