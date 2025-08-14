@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameStateManager : MonoBehaviour
+public class GameStateManager : MonoBehaviour, IGameStateManager
 {
     public enum GameState
     {
@@ -14,6 +14,7 @@ public class GameStateManager : MonoBehaviour
 
     private GameState currentState;
     private Stage selectedStage;  // 選ばれたステージ情報
+<<<<<<< Updated upstream
     public UIManager uiManage;    // UIManagerへの参照
     //public IUserDataManager userDataManager;  // IUserDataManagerの参照
     private int missCount; // ミス回数
@@ -41,7 +42,7 @@ public class GameStateManager : MonoBehaviour
             if (timeElapsed >= timeBeforeAutoTransition)
             {
                 // チュートリアルが未完了の場合、チュートリアル画面へ遷移
-                if (!IsTutorialDone())
+                if (IsTutorialDone())
                 {
                     ChangeState(GameState.Tutorial);
                 }
@@ -79,7 +80,7 @@ public class GameStateManager : MonoBehaviour
             case GameState.Result:
                 uiManage.ShowUI("Result");
                 uiManage.ShowClearResult(missCount, clearTime); // ミス回数とクリア時間を表示
-                Invoke("AutoTransitionToStageSelectFromResult", 3f); // TODO: 関数AutoTransitionToStageSelectFromResultの実装
+                //Invoke("AutoTransitionToStageSelectFromResult", 3f); // TODO: 関数AutoTransitionToStageSelectFromResultの実装
                 break;
 
             case GameState.StageSelect:
@@ -100,8 +101,9 @@ public class GameStateManager : MonoBehaviour
     }
 
     // チュートリアルが完了したかをPlayerPrefsで確認
-    private bool IsTutorialDone()
+    public bool IsTutorialDone()
     {
+<<<<<<< Updated upstream
         return PlayerPrefs.GetInt(TutorialDoneKey, 0) == 0; // チュートリアルが完了した場合は1、未完了の場合は0
     }
 
@@ -117,7 +119,7 @@ public class GameStateManager : MonoBehaviour
         selectedStage = stage;
     }
 
-    private void StartGame()
+    public void StartGame()
     {
         if (selectedStage != null)
         {
@@ -155,5 +157,60 @@ public class GameStateManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void ResetStage()
+    {
+        missCount = 0;
+        clearTime = 0f;
+        // 必要ならステージデータもリセット
+    }
+
+    public void OnRetryButtonPressed()
+    {
+        if (selectedStage != null)
+        {
+            Debug.Log("ステージをリトライします");
+            // ミスカウントやタイマーなどもリセット
+            ResetStage();
+            ChangeState(GameState.Playing);
+        }
+        else
+        {
+            Debug.LogWarning("リトライできません。ステージが未選択です。");
+        }
+    }
+
+    // 途中のゲームに戻る
+    public void ContinueGameButtonPressed()
+    {
+        if (selectedStage != null)
+        {
+            Debug.Log("途中のゲームに戻ります");
+            uiManage.ShowUI("Game");
+            // 必要ならゲームの進行状態を復元
+        }
+        else
+        {
+            Debug.LogWarning("途中のゲームに戻れません。ステージが未選択です。");
+        }
+    }
+
+
+    public void OnSelectButtonPressed()
+    {
+        ChangeState(GameState.StageSelect);
+    }
+
+    // オプションボタン押下時
+    public void OnOptionButtonPressed()
+    {
+        uiManage.ShowUI("Option");
+    }
+
+    // ヒントボタン押下時
+    public void OnHintButtonPressed()
+    {
+        uiManage.ShowUI("Hint");
     }
 }
