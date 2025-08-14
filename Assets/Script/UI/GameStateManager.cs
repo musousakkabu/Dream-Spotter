@@ -137,7 +137,7 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    // ゲームクリアかどうかを判定するメソッド
+    // konnbannゲームクリアかどうかを判定するメソッド
     private bool IsGameClear()
     {
         // 例: selectedStage.stageNumber が特定のステージ番号（例えば 10）ならクリアとする
