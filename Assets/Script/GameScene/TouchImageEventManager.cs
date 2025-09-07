@@ -72,8 +72,8 @@ class TouchImageEventManager: ITouchImageEventManager
         System.Numerics.Vector2[] correctedCoordinateListDownSide = userDataManager.getCorrectedAnswer(stageNumber, false);
         foreach (System.Numerics.Vector2 correctedCoordinate in correctedCoordinateListUpSide.Concat(correctedCoordinateListDownSide).ToArray())
         {
-            bool isInsideHorizontal = correctedCoordinate.X >= touchedCoordinates.X - Constants.CORRECT_TOUCH_RANGE && correctedCoordinate.X <= touchedCoordinates.X + Constants.CORRECT_TOUCH_RANGE;
-            bool isInsideVertical = correctedCoordinate.Y >= touchedCoordinates.Y - Constants.CORRECT_TOUCH_RANGE && correctedCoordinate.Y <= touchedCoordinates.Y + Constants.CORRECT_TOUCH_RANGE;
+            bool isInsideHorizontal = correctedCoordinate.X >= touchedCoordinates.X - Constants.Numbers.CORRECT_TOUCH_RANGE && correctedCoordinate.X <= touchedCoordinates.X + Constants.Numbers.CORRECT_TOUCH_RANGE;
+            bool isInsideVertical = correctedCoordinate.Y >= touchedCoordinates.Y - Constants.Numbers.CORRECT_TOUCH_RANGE && correctedCoordinate.Y <= touchedCoordinates.Y + Constants.Numbers.CORRECT_TOUCH_RANGE;
             if (isInsideHorizontal && isInsideVertical)
             {
                 return new ResultReturnType(TouchResult.correctedYet, new System.Numerics.Vector2(0, 0));
@@ -84,8 +84,8 @@ class TouchImageEventManager: ITouchImageEventManager
         System.Numerics.Vector2[] answers = isUpSideImageClicked ? upSideImageAnswers : downSideImageAnswers;
         foreach (System.Numerics.Vector2 ans in answers)
         {
-            bool isInsideHorizontal = ans.X >= touchedCoordinates.X - Constants.CORRECT_TOUCH_RANGE && ans.X <= touchedCoordinates.X + Constants.CORRECT_TOUCH_RANGE;
-            bool isInsideVertical = ans.Y >= touchedCoordinates.Y - Constants.CORRECT_TOUCH_RANGE && ans.Y <= touchedCoordinates.Y + Constants.CORRECT_TOUCH_RANGE;
+            bool isInsideHorizontal = ans.X >= touchedCoordinates.X - Constants.Numbers.CORRECT_TOUCH_RANGE && ans.X <= touchedCoordinates.X + Constants.Numbers.CORRECT_TOUCH_RANGE;
+            bool isInsideVertical = ans.Y >= touchedCoordinates.Y - Constants.Numbers.CORRECT_TOUCH_RANGE && ans.Y <= touchedCoordinates.Y + Constants.Numbers.CORRECT_TOUCH_RANGE;
             if (isInsideHorizontal && isInsideVertical) 
             {
                 return new ResultReturnType(TouchResult.correct, ans);
