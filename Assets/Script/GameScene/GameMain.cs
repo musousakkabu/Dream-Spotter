@@ -49,6 +49,6 @@ class GameMain: MonoBehaviour
             userDataManager.getLastSelectedStageNumber()
         );
         this.gameEventsManager = gameEventsManager;
-        this.customTimer = new CustomTimer(Constants.baseTimerLimitSec, () => { gameEventsManager.gameOverEvent(); });
+        this.customTimer = new CustomTimer(Constants.BASE_TIMER_LIMIT_SEC, () => { gameEventsManager.gameOverEvent(); });
     }
 }

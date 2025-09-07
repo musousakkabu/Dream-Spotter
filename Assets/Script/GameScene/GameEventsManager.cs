@@ -38,7 +38,7 @@ class GameEventsManager: IGameEventsManager
 
         inCorrectCount++;
 
-        if (inCorrectCount > Constants.baseLifeCount) 
+        if (inCorrectCount > Constants.BASE_LIFE_COUNT) 
         {
             gameOverEvent();
         }

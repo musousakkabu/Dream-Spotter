@@ -10,7 +10,7 @@ class GameObjectManager: IGameObjectManager
 
     public GameObject getMainImageObj(bool isUpSideImage)
     {
-        GameObject imageObj = GameObject.Find(isUpSideImage ? Constants.upSideImageObjName : Constants.downSideImageObjName);
+        GameObject imageObj = GameObject.Find(isUpSideImage ? Constants.UP_SIDE_IMAGE_OBJECT_NAME : Constants.DOWN_SIDE_IMAGE_OBJECT_NAME);
         if (imageObj == null)
         {
             errorHandler.invalidObjectNameError(new InvalidObjectNameError(""));
@@ -26,7 +26,7 @@ class GameObjectManager: IGameObjectManager
 
     public bool isImageObject(GameObject obj)
     {
-        return obj.name == Constants.upSideImageObjName || obj.name == Constants.downSideImageObjName;
+        return obj.name == Constants.UP_SIDE_IMAGE_OBJECT_NAME || obj.name == Constants.DOWN_SIDE_IMAGE_OBJECT_NAME;
     }
 
     public System.Numerics.Vector2 getMainImageSize(bool isUpSideImage)
